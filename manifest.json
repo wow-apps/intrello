@@ -1,19 +1,14 @@
 {
   "name": "inTrello",
-  "version": "0.0.3",
+  "version": "1.0.1",
   "description": "Add people data from LinkedIn profile to Trello boards as cards",
-  "permissions": ["activeTab", "declarativeContent", "storage"],
+  "permissions": ["activeTab", "declarativeContent", "https://www.linkedin.com/in/*"],
   "background": {
-    "scripts": ["jquery-3.3.1.min.js", "eventListener.js"],
+    "scripts": ["event_listener.js"],
     "persistent": false
   },
   "page_action": {
-    "default_icon": {
-      "16": "img/icon_16.png",
-      "32": "img/icon_32.png",
-      "48": "img/icon_64.png",
-      "128": "img/icon_128.png"
-    }
+    "default_icon": "img/icon_16.png"
   },
   "icons": {
     "16": "img/icon_16.png",

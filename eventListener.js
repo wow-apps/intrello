@@ -1,9 +1,6 @@
 'use strict';
 
 chrome.runtime.onInstalled.addListener(function() {
-    // chrome.storage.sync.set({color: '#3aa757'}, function() {
-    //     console.log('The color is green.');
-    // });
     chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
         chrome.declarativeContent.onPageChanged.addRules([{
             conditions: [new chrome.declarativeContent.PageStateMatcher({
@@ -14,14 +11,17 @@ chrome.runtime.onInstalled.addListener(function() {
     });
 });
 
-chrome.pageAction.onClicked.addListener(function () {
-    alert($("h1.pv-top-card-section__name").text());
-    window.Trello.addCard(
-        {
-            mode: 'popup',
-            name: 'Alexey Samara',
-            desc: "Test description\nhttps://www.linkedin.com/in/alexey-samara/",
-            source: 'https://www.linkedin.com/in/alexey-samara/'
-        }
-    );
+chrome.pageAction.onClicked.addListener(function (tab) {
+    if (tab.url.indexOf("https://www.linkedin.com/in/") != -1) {
+        chrome.tabs.executeScript(tab.id, {
+            "file": "lib/jquery-3.3.1.min.js"
+        }, function () {
+            console.log("jquery-3.3.1.min.js Executed .. ");
+        });
+        chrome.tabs.executeScript(tab.id, {
+            "file": "in_trello.js"
+        }, function () {
+            console.log("inTrello Executed .. ");
+        });
+    }
 });
