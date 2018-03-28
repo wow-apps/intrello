@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>inTrello</title>
+    <meta name="author" content="Alexey Samara" />
+    <meta name="description" content="" />
+    <style type="text/css">
+
+    </style>
+</head>
+<body>
+
+    <a href="#test">Test</a>
+
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://trello.com/1/client.js?key=4d00dbae7c9180ebf7628bd73c8af823"></script>
+<script type="text/javascript">
+
+    $(document).ready(function(){
+
+        $("a[href='#test']").on('click', function () {
+            window.Trello.addCard(
+                {
+                    mode: 'popup',
+                    name: 'Alexey Samara',
+                    desc: "Test description\nhttps://www.linkedin.com/in/alexey-samara/",
+                    source: 'https://www.linkedin.com/in/alexey-samara/'
+                }
+            );
+
+            return false;
+        });
+
+    });
+
+</script>
+
+</body>
+</html>
