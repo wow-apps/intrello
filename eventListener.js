@@ -1,3 +1,10 @@
+/**
+ * inTrello - extension for Google Chrome
+ * @package https://github.com/wow-apps/intrello
+ * @copyright wow-apps <https://wow-apps.pro/>
+ * @author Alexey Samara <lion.samara@gmail.com>
+ * @licence Apache License 2
+ */
 'use strict';
 
 chrome.runtime.onInstalled.addListener(function() {
