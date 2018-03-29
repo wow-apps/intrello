@@ -64,34 +64,26 @@ var inTrello = {
         this.data.trelloApiRequest.mode = appMode;
         this.data.trelloApiRequest.url = tabUrl;
         this.data.trelloApiRequest.source = tabUrl;
+
         return this;
-    },
-    execute: function () {
-        this
-            .loadPage()
-            .parseData()
-            .setupTrelloApiRequest()
-            .createCard();
     },
     preLoader: function (isShow) {
         if (isShow) {
-            var load = isShow;
+            $('head').append('<style type="text/css">#intrello-preloader-curtain,#intrello-preloader-loader-container{position:fixed;left:0;top:0;width:100%;height:100%;display:block}#intrello-preloader-curtain{z-index:9998;background:#ccc}#intrello-preloader-loader-container{z-index:9999}h1.intrello-preloader-h{text-align:center;color:#333;font-family:sans-serif;font-size:14px;font-weight:300}.intrello-preloader-cssload-container{display:block;margin:125px auto;width:250px}.intrello-preloader-cssload-loading i{width:50px;height:50px;display:inline-block;border-radius:50%;background:#00b3d5}.intrello-preloader-cssload-loading i:first-child{opacity:0;animation:intrello-preloader-cssload-loading-ani2 .58s linear infinite;-o-animation:intrello-preloader-cssload-loading-ani2 .58s linear infinite;-ms-animation:intrello-preloader-cssload-loading-ani2 .58s linear infinite;-webkit-animation:intrello-preloader-cssload-loading-ani2 .58s linear infinite;-moz-animation:intrello-preloader-cssload-loading-ani2 .58s linear infinite;transform:translate(-50px);-o-transform:translate(-50px);-ms-transform:translate(-50px);-webkit-transform:translate(-50px);-moz-transform:translate(-50px)}.intrello-preloader-cssload-loading i:nth-child(2),.intrello-preloader-cssload-loading i:nth-child(3){animation:intrello-preloader-cssload-loading-ani3 .58s linear infinite;-o-animation:intrello-preloader-cssload-loading-ani3 .58s linear infinite;-ms-animation:intrello-preloader-cssload-loading-ani3 .58s linear infinite;-webkit-animation:intrello-preloader-cssload-loading-ani3 .58s linear infinite;-moz-animation:intrello-preloader-cssload-loading-ani3 .58s linear infinite}.intrello-preloader-cssload-loading i:last-child{animation:intrello-preloader-cssload-loading-ani1 .58s linear infinite;-o-animation:intrello-preloader-cssload-loading-ani1 .58s linear infinite;-ms-animation:intrello-preloader-cssload-loading-ani1 .58s linear infinite;-webkit-animation:intrello-preloader-cssload-loading-ani1 .58s linear infinite;-moz-animation:intrello-preloader-cssload-loading-ani1 .58s linear infinite}@keyframes intrello-preloader-cssload-loading-ani1{100%{transform:translate(100px);opacity:0}}@-o-keyframes intrello-preloader-cssload-loading-ani1{100%{-o-transform:translate(100px);opacity:0}}@-ms-keyframes intrello-preloader-cssload-loading-ani1{100%{-ms-transform:translate(100px);opacity:0}}@-webkit-keyframes intrello-preloader-cssload-loading-ani1{100%{-webkit-transform:translate(100px);opacity:0}}@-moz-keyframes intrello-preloader-cssload-loading-ani1{100%{-moz-transform:translate(100px);opacity:0}}@keyframes intrello-preloader-cssload-loading-ani2{100%{transform:translate(50px);opacity:1}}@-o-keyframes intrello-preloader-cssload-loading-ani2{100%{-o-transform:translate(50px);opacity:1}}@-ms-keyframes intrello-preloader-cssload-loading-ani2{100%{-ms-transform:translate(50px);opacity:1}}@-webkit-keyframes intrello-preloader-cssload-loading-ani2{100%{-webkit-transform:translate(50px);opacity:1}}@-moz-keyframes intrello-preloader-cssload-loading-ani2{100%{-moz-transform:translate(50px);opacity:1}}@keyframes intrello-preloader-cssload-loading-ani3{100%{transform:translate(50px)}}@-o-keyframes intrello-preloader-cssload-loading-ani3{100%{-o-transform:translate(50px)}}@-ms-keyframes intrello-preloader-cssload-loading-ani3{100%{-ms-transform:translate(50px)}}@-webkit-keyframes intrello-preloader-cssload-loading-ani3{100%{-webkit-transform:translate(50px)}}@-moz-keyframes intrello-preloader-cssload-loading-ani3{100%{-moz-transform:translate(50px)}}</style>');
+            $('body').append('<div id="intrello-preloader-curtain"></div><div id="intrello-preloader-loader-container"><div class="intrello-preloader-cssload-container"><div class="intrello-preloader-cssload-loading"><i></i><i></i><i></i><i></i></div></div><h1 class="intrello-preloader-h">inTrello fetching data from profile...</h1></div>');
         } else {
-            var load = isShow;
+            $('#intrello-preloader-curtain, #intrello-preloader-loader-container').remove();
         }
 
         return this;
     },
-    loadPage: function () {
-        //this.preLoader(true);
+    execute: function () {
+        this.preLoader(true);
         $('button.contact-see-more-less').click();
-        $("html, body").animate({scrollTop: $(document).height()}, 1000, 'swing', function () {
-            setTimeout(function () {
-                $(window).scrollTop(0);
-            }, 3000);
+        $("html, body").animate({scrollTop: $(document).height()}, 3000).promise().then(function() {
+            $(window).scrollTop(0);
+            inTrello.parseData();
         });
-
-        return this;
     },
     parseData: function () {
         this.data.inProfile.name = this.trait.clearText($('h1.pv-top-card-section__name').text());
@@ -133,7 +125,7 @@ var inTrello = {
             );
         });
 
-        return this;
+        this.setupTrelloApiRequest();
     },
     setupTrelloApiRequest: function () {
         this.data.trelloApiRequest.name = this.data.inProfile.name;
@@ -239,7 +231,8 @@ var inTrello = {
                 )
             );
 
-        return this;
+        this.preLoader(false);
+        this.createCard();
     },
     createCard: function () {
         if (this.data.trelloApiRequest.mode === 'popup') {
@@ -253,6 +246,8 @@ var inTrello = {
                 }
             );
         }
+
+        return this;
     }
 };
 
