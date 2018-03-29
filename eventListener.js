@@ -13,15 +13,13 @@ chrome.runtime.onInstalled.addListener(function() {
 
 chrome.pageAction.onClicked.addListener(function (tab) {
     if (tab.url.indexOf("https://www.linkedin.com/in/") != -1) {
-        chrome.tabs.executeScript(tab.id, {
-            "file": "lib/jquery-3.3.1.min.js"
-        }, function () {
-            console.log("jquery-3.3.1.min.js Executed .. ");
-        });
-        chrome.tabs.executeScript(tab.id, {
-            "file": "in_trello.js"
-        }, function () {
-            console.log("inTrello Executed .. ");
-        });
+        chrome.tabs.sendMessage(
+            tab.id,
+            {
+                appKey: '4d00dbae7c9180ebf7628bd73c8af823',
+                appMode: 'popup',
+                tab: tab
+            }
+        );
     }
 });
