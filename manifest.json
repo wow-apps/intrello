@@ -1,16 +1,22 @@
 {
     "name": "inTrello",
-    "version": "1.2.3",
+    "version": "1.3.0",
     "description": "Organize all your candidates from LinkedIn in Trello boards",
-    "permissions": ["activeTab", "declarativeContent", "https://www.linkedin.com/in/*"],
+    "permissions": ["activeTab", "declarativeContent", "https://www.linkedin.com/in/*", "https://trello.com/add-card?*"],
     "background": {
-        "scripts": ["eventListener.js"],
+        "scripts": ["js/eventListener.js"],
         "persistent": true
     },
-    "content_scripts": [{
-        "matches": ["https://www.linkedin.com/in/*"],
-        "js": ["lib/jquery-3.3.1.min.js", "lib/trelloClient.js", "inTrello.js"]
-    }],
+    "content_scripts": [
+        {
+            "matches": ["https://www.linkedin.com/in/*"],
+            "js": ["lib/jquery-3.3.1.min.js", "lib/trelloClient.js", "js/inTrello.js"]
+        },
+        {
+            "matches": ["https://trello.com/add-card?*"],
+            "js": ["lib/jquery-3.3.1.min.js", "js/trello.js"]
+        }
+    ],
     "page_action": {
         "default_icon": "img/icon_48.png"
     },
