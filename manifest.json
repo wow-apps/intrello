@@ -14,7 +14,7 @@
         },
         {
             "matches": ["https://trello.com/add-card?*"],
-            "js": ["lib/jquery-3.3.1.min.js", "js/trello.js"]
+            "js": ["lib/jquery-3.3.1.min.js", "js/trelloAddCardStyle.js"]
         }
     ],
     "page_action": {
