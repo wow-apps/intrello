@@ -1,6 +1,6 @@
 {
     "name": "inTrello",
-    "version": "1.3.0",
+    "version": "1.3.1",
     "description": "Organize all your candidates from LinkedIn in Trello boards",
     "permissions": ["activeTab", "declarativeContent", "https://www.linkedin.com/in/*", "https://trello.com/add-card?*"],
     "background": {
