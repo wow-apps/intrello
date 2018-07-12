@@ -1,0 +1,14 @@
+{
+    "extName": {
+        "message": "inTrello",
+        "description": "Extention name"
+    },
+    "extDesctiption": {
+        "message": "Szortírozd el a jelöltedeket a LinkedIn-től a Trello táblákban",
+        "desctiption": "Extention description"
+    },
+    "extPreloaderMessage": {
+        "message": "a bérleti folyamat megkezdése ...",
+        "desctiption": "Extention preloader message"
+    }
+}

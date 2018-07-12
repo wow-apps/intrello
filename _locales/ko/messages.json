@@ -1,0 +1,14 @@
+{
+    "extName": {
+        "message": "inTrello",
+        "description": "Extention name"
+    },
+    "extDesctiption": {
+        "message": "Trello 게시판의 LinkedIn에서 모든 후보자 구성",
+        "desctiption": "Extention description"
+    },
+    "extPreloaderMessage": {
+        "message": "채용 절차 시작 ...",
+        "desctiption": "Extention preloader message"
+    }
+}

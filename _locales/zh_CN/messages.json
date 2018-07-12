@@ -1,0 +1,14 @@
+{
+    "extName": {
+        "message": "inTrello",
+        "description": "Extention name"
+    },
+    "extDesctiption": {
+        "message": "在Trello董事会中组织所有来自LinkedIn的候选人",
+        "desctiption": "Extention description"
+    },
+    "extPreloaderMessage": {
+        "message": "开始招聘流程......",
+        "desctiption": "Extention preloader message"
+    }
+}

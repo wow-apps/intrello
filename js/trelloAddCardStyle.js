@@ -7,7 +7,6 @@
  * @link https://wow-apps.github.io/intrello/
  * @licence Apache License 2
  */
-'use strict';
 
 $(document).ready(function() {
     
