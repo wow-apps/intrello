@@ -36,14 +36,16 @@ chrome.runtime.onInstalled.addListener(function() {
 });
 
 chrome.pageAction.onClicked.addListener(function (tab) {
-    if (tab.url.indexOf("https://www.linkedin.com/in/") != -1) {
-        chrome.tabs.sendMessage(
-            tab.id,
-            {
-                appKey: '4d00dbae7c9180ebf7628bd73c8af823',
-                appMode: 'popup',
-                tab: tab
-            }
-        );
+    if (tab.status !== 'complete' || tab.url.indexOf("https://www.linkedin.com/in/") == -1) {
+        return false;
     }
+    
+    chrome.tabs.sendMessage(
+        tab.id,
+        {
+            appKey: '4d00dbae7c9180ebf7628bd73c8af823',
+            appMode: 'popup',
+            tab: tab
+        }
+    );
 });
