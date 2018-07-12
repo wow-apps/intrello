@@ -1,10 +1,13 @@
 /**
  * inTrello - extension for Google Chrome
+ *
  * @package https://github.com/wow-apps/intrello
  * @copyright wow-apps <https://wow-apps.pro/>
  * @author Alexey Samara <lion.samara@gmail.com>
+ * @link https://wow-apps.github.io/intrello/
  * @licence Apache License 2
  */
+'use strict';
 
 var inTrello = {
     data: {
@@ -97,10 +100,18 @@ var inTrello = {
         this.data.inProfile.topic = this.trait.clearText($('h2.pv-top-card-section__headline').text());
         this.data.inProfile.currentWork = this.trait.clearText($('h3.pv-top-card-section__company').text());
         this.data.inProfile.location = this.trait.clearText($('h3.pv-top-card-section__location').text());
-        this.data.inProfile.avatar = $(".pv-top-card-section__photo")
-            .css("backgroundImage")
-            .replace('url("', '')
-            .replace('")', '');
+        if ($(".pv-top-card-section__photo").length < 1) {
+            if ($('img.profile-photo-edit__preview').length < 1) {
+                this.data.inProfile.avatar = '';
+            } else {
+                this.data.inProfile.avatar = $('img.profile-photo-edit__preview').attr('src');
+            }
+        } else {
+            this.data.inProfile.avatar = $(".pv-top-card-section__photo")
+                .css("backgroundImage")
+                .replace('url("', '')
+                .replace('")', '');
+        }
 
         $('li.pv-position-entity').each(function(item) {
             inTrello.data.inProfile.experience.push({
@@ -120,13 +131,9 @@ var inTrello = {
         });
 
         $('a[data-control-name="contact_see_more"]').click();
-        console.log('Button clicked');
 
         setTimeout(function() {
-            console.log('Timeout is over');
-            console.log('Founded ' + $('section.pv-contact-info__contact-type').length + ' items');
             $('section.pv-contact-info__contact-type').each(function(item) {
-                console.log(inTrello.trait.clearText($('header', this).text()) + ' ==> ' + inTrello.trait.clearText($('div.pv-contact-info__ci-container', this).text()));
                 inTrello.data.inProfile.contacts.push({
                     contactHeader: inTrello.trait.clearText($('header', this).text()),
                     contactValue: inTrello.trait.clearText($('div.pv-contact-info__ci-container', this).text())

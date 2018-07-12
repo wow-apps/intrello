@@ -1,10 +1,13 @@
 /**
  * inTrello - extension for Google Chrome
+ *
  * @package https://github.com/wow-apps/intrello
  * @copyright wow-apps <https://wow-apps.pro/>
  * @author Alexey Samara <lion.samara@gmail.com>
+ * @link https://wow-apps.github.io/intrello/
  * @licence Apache License 2
  */
+'use strict';
 
 $(document).ready(function() {
     
