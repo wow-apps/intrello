@@ -248,7 +248,35 @@ var inTrello = {
             );
 
         this.preLoader(false);
-        this.createCard();
+        this.requestContactData('viktoriya-roik-39442b66');
+        // this.createCard();
+    },
+    getUserIdFromUrl: function(url) {
+        console.log('Url: ' + url);
+        var matches = url.match(new RegExp("\/in\/(.*)\/"));
+        return matches ? decodeURIComponent(matches[1]) : undefined;
+    },
+    requestContactData: function() {
+        //curl 'https://www.linkedin.com/voyager/api/identity/profiles/marina-pronina/profileContactInfo' -H 'accept-encoding: gzip, deflate, br' -H 'x-li-lang: en_US' -H 'accept-language: ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7,uk;q=0.6' -H 'x-requested-with: XMLHttpRequest' -H 'cookie: bcookie="v=2&e5bdf2d8-d4b0-4aa4-834c-bf11e8adf345"; bscookie="v=1&2018070809080352c22238-da0e-482c-8eff-d1783cc5bdd0AQF_BLzfl3FC0Q8oeh-dZwU5PBtBuWvS"; _ga=GA1.2.1733992327.1531148634; sl="v=1&snCCi"; JSESSIONID="ajax:2998513099200544385"; liap=true; li_at=AQEDAQpTC2QFzQQ0AAABZH-SDqgAAAFko56SqFYACsC4RMdnSoAA0-3w-buZCNFdzSUIGcGj2JQmJgaPwp7_tp_jloXv3x2t0tdYpC8YqyaooZivPI18t1x8TWfI3kFlPNXg_GvybYzCk73V8V2K30O7; _guid=c0e53a28-8e73-469b-880a-cb32d4d08f1c; li_oatml=AQHqZVQMMsg9RgAAAWR_kiL2Fd-0FMQm_oSC_Djgci7Txw5RMjyGpjM0LlCQrLiP6ru8gqjqyBZPjAMBc7qcCSxrIXYExSnE; visit="v=1&M"; lang="v=2&lang=en-us"; SID=b37adfa1-f756-47c6-a5fe-b8b8de8c209a; VID=V_2018_07_14_16_471; _gat=1; _lipt=CwEAAAFknw-IzGH-1zbdTK1C-IkpepFfZyeqS_zp3qlsCMfI823zqoVcOFE7fBrGr3Vhc4Co7BWiUTu35RzUb0KKpgL0ChSmOq7cX9xzbYywdzXmRpo2s5HLvlrwdYWCho4rYD-c7dyzB3nJIWd1ujdgO9EPJ5nDRiEAK2wHLc4wqJQ3AaGcE97DxjNA713akrR89hNTKFjDo7J7qgoIgwIk2rzncR1kKa_JSNqHcC0v_GhlfWojF1CXbflsKfhVto60BTaHWntJ_35_GbtTB-QSi12coCFEOogqchZJhSm5l0FbXekZsaQOqywO2lmhqx9bNLSXfc5bmFQ8uYKPJ-SplSx1shxJklXoMC-8wviDTPGo0E5tNs2xrRe6HlJBaaQFMN772sI; lidc="b=OB64:g=887:u=222:i=1531676953:t=1531761803:s=AQEoysAZUdjGhH3vR1diO5IUhtQbTJD-"' -H 'x-restli-protocol-version: 2.0.0' -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36' -H 'x-li-page-instance: urn:li:page:d_flagship3_profile_view_base_contact_details;TBxF+bOYRA6uCH1PflgAkQ==' -H 'accept: application/vnd.linkedin.normalized+json' -H 'csrf-token: ajax:2998513099200544385' -H 'x-li-track: {"clientVersion":"1.1.8928","osName":"web","timezoneOffset":3,"deviceFormFactor":"DESKTOP","mpName":"voyager-web"}' -H 'authority: www.linkedin.com' -H 'referer: https://www.linkedin.com/in/marina-pronina/' --compressed
+        var userId = this.getUserIdFromUrl(window.location.href),
+            url = 'https://www.linkedin.com/voyager/api/identity/profiles/' + userId + '/profileContactInfo';
+        result = fetch(
+            url,
+            {
+                credentials: 'same-origin',
+                headers: {},
+                referrer: window.location.href,
+                referrerPolicy: 'no-referrer-when-downgrade',
+                body: null,
+                method: 'GET',
+                mode: 'no-cors',
+                redirect: 'follow'
+            }
+        ).then(function(response) {
+            console.log(response.status);
+            console.log(response.ok);
+            console.log(response);
+        });
     },
     createCard: function() {
         if (this.data.trelloApiRequest.mode === 'popup') {

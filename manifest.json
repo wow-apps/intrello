@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "__MSG_extName__",
-    "version": "1.4.0",
+    "version": "1.5.0",
     "description": "__MSG_extDesctiption__",
     "default_locale": "en",
     "permissions": ["activeTab", "declarativeContent", "https://www.linkedin.com/in/*", "https://trello.com/add-card?*"],
@@ -12,7 +12,7 @@
     "content_scripts": [
         {
             "matches": ["https://www.linkedin.com/in/*"],
-            "js": ["lib/jquery-3.3.1.min.js", "lib/trelloClient.js", "js/inTrello.js"]
+            "js": ["lib/jquery-3.3.1.min.js", "lib/trelloClient.js", "js/cookieManager.js", "js/inTrello.js"]
         },
         {
             "matches": ["https://trello.com/add-card?*"],
