@@ -1,0 +1,14 @@
+{
+    "extName": {
+        "message": "inTrello",
+        "description": "Extention name"
+    },
+    "extDesctiption": {
+        "message": "Panga wagombea wako wote kutoka LinkedIn katika bodi za Trello",
+        "desctiption": "Extention description"
+    },
+    "extPreloaderMessage": {
+        "message": "Anza mchakato wa kukodisha ...",
+        "desctiption": "Extention preloader message"
+    }
+}

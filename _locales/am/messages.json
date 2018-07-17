@@ -1,0 +1,14 @@
+{
+    "extName": {
+        "message": "inTrello",
+        "description": "Extention name"
+    },
+    "extDesctiption": {
+        "message": "በ Trello ቦርድ አባላት ውስጥ ሁሉንም እጩዎችዎን ከ LinkedIn ያደራጁ",
+        "desctiption": "Extention description"
+    },
+    "extPreloaderMessage": {
+        "message": "ቅጥርን ይጀምሩ ...",
+        "desctiption": "Extention preloader message"
+    }
+}

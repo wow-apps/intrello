@@ -1,0 +1,14 @@
+{
+    "extName": {
+        "message": "inTrello",
+        "description": "Extention name"
+    },
+    "extDesctiption": {
+        "message": "Organize todos os seus candidatos do LinkedIn em quadros Trello",
+        "desctiption": "Extention description"
+    },
+    "extPreloaderMessage": {
+        "message": "comece o processo de contratação ...",
+        "desctiption": "Extention preloader message"
+    }
+}

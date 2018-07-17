@@ -1,0 +1,14 @@
+{
+    "extName": {
+        "message": "inTrello",
+        "description": "Extention name"
+    },
+    "extDesctiption": {
+        "message": "ట్రెల్లో బోర్డుల్లో లింక్డ్ఇన్ నుండి మీ అన్ని అభ్యర్థులను నిర్వహించండి",
+        "desctiption": "Extention description"
+    },
+    "extPreloaderMessage": {
+        "message": "నియామకం ప్రక్రియ ప్రారంభం ...",
+        "desctiption": "Extention preloader message"
+    }
+}
