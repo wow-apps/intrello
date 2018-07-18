@@ -10,5 +10,61 @@
     "extPreloaderMessage": {
         "message": "начинаем процесс найма...",
         "desctiption": "Extention preloader message"
+    },
+    "appContactsDateOfBirth": {
+        "message": "Дата рождения",
+        "desctiption": "Date of Birth title"
+    },
+    "appContactsDateOfBirthAddCalendarLink": {
+        "message": "Добавить событие дня рождения в Google calendar",
+        "desctiption": "Add birthday event to calendar button text"
+    },
+    "appContactsDateOfBirthCalendarTitle": {
+        "message": "День рождения",
+        "desctiption": "Title for add birthday to calendar"
+    },
+    "appContactsSkypeChatButton": {
+        "message": "Начать чат в Skype",
+        "desctiption": "Start chat in Skype button text"
+    },
+    "appContactsSkypeCallButton": {
+        "message": "Позвонить в Skype",
+        "desctiption": "Call in Skype button text"
+    },
+    "appContactsHangoutChatButton": {
+        "message": "Начать чат в Hangout",
+        "desctiption": "Start chat in Hangout button text"
+    },
+    "appContactsICQChatButton": {
+        "message": "Начать чат в ICQ",
+        "desctiption": "Start chat in ICQ button text"
+    },
+    "appContactsPhoneTitle": {
+        "message": "Контактный телефон",
+        "desctiption": "Phone number title"
+    },
+    "appContactsPhoneCall": {
+        "message": "Позвонить на телефон",
+        "desctiption": "Make a call on phone number"
+    },
+    "appContactsSiteTitle": {
+        "message": "Вебсайт",
+        "desctiption": "Web site title"
+    },
+    "appContactsTwitterButton": {
+        "message": "Перейти в Twitter акаунт",
+        "desctiption": "Twitter button"
+    },
+    "appContactsEmailButton": {
+        "message": "Написать письмо",
+        "desctiption": "Compose an e-mail button"
+    },
+    "appExperienceHeader": {
+        "message": "Опыт работы",
+        "desctiption": "Experience header"
+    },
+    "appEducationHeader": {
+        "message": "Образование",
+        "desctiption": "Education header"
     }
 }

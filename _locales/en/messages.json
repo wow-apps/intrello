@@ -10,5 +10,61 @@
     "extPreloaderMessage": {
         "message": "begin the hiring process...",
         "desctiption": "Extention preloader message"
+    },
+    "appContactsDateOfBirth": {
+        "message": "Date of Birth",
+        "desctiption": "Date of Birth title"
+    },
+    "appContactsDateOfBirthAddCalendarLink": {
+        "message": "Add birthday event to Google calendar",
+        "desctiption": "Add birthday event to calendar button text"
+    },
+    "appContactsDateOfBirthCalendarTitle": {
+        "message": "Birthday of",
+        "desctiption": "Title for add birthday to calendar"
+    },
+    "appContactsSkypeChatButton": {
+        "message": "Start chat in Skype",
+        "desctiption": "Start chat in Skype button text"
+    },
+    "appContactsSkypeCallButton": {
+        "message": "Call in Skype",
+        "desctiption": "Call in Skype button text"
+    },
+    "appContactsHangoutChatButton": {
+        "message": "Start chat in Hangout",
+        "desctiption": "Start chat in Hangout button text"
+    },
+    "appContactsICQChatButton": {
+        "message": "Start chat in ICQ",
+        "desctiption": "Start chat in ICQ button text"
+    },
+    "appContactsPhoneTitle": {
+        "message": "Phone number",
+        "desctiption": "Phone number title"
+    },
+    "appContactsPhoneCall": {
+        "message": "Call on phone number",
+        "desctiption": "Make a call on phone number"
+    },
+    "appContactsSiteTitle": {
+        "message": "Web site",
+        "desctiption": "Web site title"
+    },
+    "appContactsTwitterButton": {
+        "message": "Go to Twitter account",
+        "desctiption": "Twitter button"
+    },
+    "appContactsEmailButton": {
+        "message": "Compose an e-mail",
+        "desctiption": "Compose an e-mail button"
+    },
+    "appExperienceHeader": {
+        "message": "Experience",
+        "desctiption": "Experience header"
+    },
+    "appEducationHeader": {
+        "message": "Education",
+        "desctiption": "Education header"
     }
 }

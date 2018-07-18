@@ -8,7 +8,17 @@
  * @licence Apache License 2
  */
 
- var cookie = {
+/**
+ * @class
+ * @public
+ * @type {{getAll: (function()), get: (function(string): *), set: cookie.set, delete: cookie.delete, isCookiesEnabled: (function(): boolean), trim: (function(string, string): string)}}
+ */
+var cookie = {
+    /**
+     * @function
+     * @public
+     * @return {object}
+     */
     getAll: function() {
         var result = {},
             cookiesArray = document.cookie.split(';');
@@ -35,19 +45,30 @@
             result[valueArray[0].trim()] = valueArray[1].replace('"', '');
         });
 
-        console.log(result);
-
         return result;
     },
+    /**
+     * @function
+     * @public
+     * @param {string} name
+     * @return {string}
+     */
     get: function(name) {
         var cookies = this.getAll();
-        return (cookies[name] === undefined) ? null : cookies[name];
+        return (cookies[name] === undefined) ? undefined : this.trim(cookies[name], '"');
     },
+    /**
+     * @function
+     * @public
+     * @param {string} name
+     * @param {string} value
+     * @param {object} options
+     */
     set: function(name, value, options) {
         options = options || {};
-      
+
         var expires = options.expires;
-      
+
         if (typeof expires == "number" && expires) {
           var d = new Date();
           d.setTime(d.getTime() + expires * 1000);
@@ -56,11 +77,11 @@
         if (expires && expires.toUTCString) {
           options.expires = expires.toUTCString();
         }
-      
+
         value = encodeURIComponent(value);
-      
+
         var updatedCookie = name + "=" + value;
-      
+
         for (var propName in options) {
           updatedCookie += "; " + propName;
           var propValue = options[propName];
@@ -68,17 +89,39 @@
             updatedCookie += "=" + propValue;
           }
         }
-      
+
         document.cookie = updatedCookie;
       },
+    /**
+     * @function
+     * @public
+     * @param {string} name
+     */
       delete: function(name) {
         this.set(name, "", {
           expires: -1
         });
       },
-      check: function() {
-        if (!navigator.cookieEnabled) {
-            throw new Error('You should enable cookies in your browser');
-        }
+     /**
+      * @function
+      * @public
+      * @return {boolean}
+      */
+      isCookiesEnabled: function() {
+        return navigator.cookieEnabled;
+      },
+      /**
+       * @function
+       * @public
+       * @param {string} string
+       * @param {string} escapeCharacter
+       * @return {string}
+       */
+      trim: function(string, escapeCharacter) {
+            if (string.substring(string.length-1) == escapeCharacter) {
+                string = string.substring(0, string.length-1);
+            }
+
+            return string;
       }
- };
+};

@@ -9,10 +9,15 @@
  */
 
 $(document).ready(function() {
-    
+
+    /**
+     * @type {string[]}
+     */
     var css = [
-        'div.recent-list input[type="button"].button.button-green{color:#fff!important;background:#A5B542!important;font-weight:400!important;border:none!important;box-shadow:none!important;border-radius:0!important;-webkit-border-radius:0!important;-moz-border-radius:0!important}',
-        'div.recent-list input[type="button"].button.button-green:hover{background:#91a031!important;color:#fff!important;font-weight:400!important;border:none!important;box-shadow:none!important;border-radius:0!important;-webkit-border-radius:0!important;-moz-border-radius:0!important}',
+        'div.recent-list input[type="button"].button{color:#fff!important;background:#999!important;font-weight:400!important;border:none!important;box-shadow:none!important;border-radius:0!important;-webkit-border-radius:0!important;-moz-border-radius:0!important}',
+        'div.recent-list input[type="button"].button:hover{color:#fff!important;background:#666!important;font-weight:400!important;border:none!important;box-shadow:none!important;border-radius:0!important;-webkit-border-radius:0!important;-moz-border-radius:0!important}',
+        'div.recent-list input[type="button"].button.button-green{color:#fff!important;background:#A5B542!important}',
+        'div.recent-list input[type="button"].button.button-green:hover{background:#91a031!important;color:#fff!important}',
         'a.button.button-green{color:#fff!important;background:#A5B542!important;font-weight:400!important;border:none!important;box-shadow:none!important;border-radius:0!important;-webkit-border-radius:0!important;-moz-border-radius:0!important}',
         'a.button.button-green:hover{background:#91a031!important;color:#fff!important;font-weight:400!important;border:none!important;box-shadow:none!important;border-radius:0!important;-webkit-border-radius:0!important;-moz-border-radius:0!important}',
         'div.card-preview{box-shadow:none!important;border:none!important;border-radius:0!important;-webkit-border-radius:0!important;-moz-border-radius:0!important}',

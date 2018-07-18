@@ -32,6 +32,110 @@ var inTrello = {
             contacts: []
         }
     },
+    contactMap: {
+        'emailAddress': {
+            getValue: function(email) {
+                var result = inTrello.trait.img(
+                    'E-mail',
+                    'https://cdn.wow-apps.pro/intrello/card_icon_mail.png'
+                ) + inTrello.trait.strong(' E-mail') + ' : ';
+                result += email;
+                
+                return inTrello.trait.blockquote(result);
+            }
+        },
+        'com.linkedin.common.Date': {
+            getValue: function(elementObject) {
+                var title = chrome.i18n.getMessage('appContactsDateOfBirth');
+                var icon = inTrello.trait.img(title, 'https://cdn.wow-apps.pro/intrello/card_icon_birth.png');
+                var result = icon + ' ';
+                result += inTrello.trait.strong(title);
+                result += ': ' + inTrello.trait.getFormattedDate(elementObject.day, elementObject.month);
+                if (inTrello.data.inProfile.name != undefined) {
+                    result += inTrello.trait.br();
+                    result += inTrello.trait.a(
+                        chrome.i18n.getMessage('appContactsDateOfBirthAddCalendarLink'),
+                        inTrello.trait.createGoogleCalendarEventLink(
+                            chrome.i18n.getMessage('appContactsDateOfBirthCalendarTitle') + ' ' + inTrello.data.inProfile.name,
+                            inTrello.trait.getGoogleDateRange(elementObject.day, elementObject.month),
+                            window.location.href
+                        )
+                    );
+                }
+
+                return inTrello.trait.blockquote(result);
+            }
+        },
+        'com.linkedin.voyager.identity.profile.IM': {
+            getValue: function(elementObject) {
+                var result = '';
+                switch(elementObject.provider) {
+                    case 'SKYPE':
+                        result = inTrello.trait.img('Skype', 'https://cdn.wow-apps.pro/intrello/card_icon_skype.png');
+                        result += inTrello.trait.strong(' Skype') + ': ';
+                        result += elementObject.id;
+                        result += inTrello.trait.br();
+                        result += inTrello.trait.a(chrome.i18n.getMessage('appContactsSkypeChatButton'), 'skype:' + elementObject.id + '?chat');
+                        result += '   |   ';
+                        result += inTrello.trait.a(chrome.i18n.getMessage('appContactsSkypeCallButton'), 'skype:' + elementObject.id + '?call');
+                        break;
+                    case 'GTALK':
+                        result = inTrello.trait.img('Hangout', 'https://cdn.wow-apps.pro/intrello/card_icon_hangout.png');
+                        result += inTrello.trait.strong(' Google+ Hangout') + ': ';
+                        result += elementObject.id;
+                        result += inTrello.trait.br();
+                        result += inTrello.trait.a(chrome.i18n.getMessage('appContactsHangoutChatButton'), 'gtalk:chat?jid=' + elementObject.id);
+                        break;
+                    case 'ICQ':
+                        result = inTrello.trait.img('ICQ', 'https://cdn.wow-apps.pro/intrello/card_icon_icq.png');
+                        result += inTrello.trait.strong(' ICQ') + ': ';
+                        result += elementObject.id;
+                        result += inTrello.trait.br();
+                        result += inTrello.trait.a(chrome.i18n.getMessage('appContactsICQChatButton'), 'http://www.icq.com/whitepages/cmd.php?action=message&uin=' + elementObject.id);
+                        break;
+                }
+
+                return inTrello.trait.blockquote(result);
+            }
+        },
+        'com.linkedin.voyager.identity.profile.PhoneNumber': {
+            getValue: function(elementObject) {
+                var result = inTrello.trait.img(
+                    'Phone number',
+                    'https://cdn.wow-apps.pro/intrello/card_icon_phone.png'
+                ) + ' ' + inTrello.trait.strong(chrome.i18n.getMessage('appContactsPhoneTitle')) + ': ';
+                result += elementObject.number;
+                result += inTrello.trait.br();
+                result += inTrello.trait.a(chrome.i18n.getMessage('appContactsPhoneCall'), 'tel:' + elementObject.number);
+                
+                return inTrello.trait.blockquote(result);
+            }
+        },
+        'com.linkedin.voyager.identity.profile.ProfileWebsite': {
+            getValue: function(elementObject) {
+                var result = inTrello.trait.img(
+                    'Web site',
+                    'https://cdn.wow-apps.pro/intrello/card_icon_site.png'
+                ) + ' ' + inTrello.trait.strong(chrome.i18n.getMessage('appContactsSiteTitle')) + ': ';
+                result += elementObject.url;
+                
+                return inTrello.trait.blockquote(result);
+            }
+        },
+        'com.linkedin.voyager.identity.profile.TwitterHandle': {
+            getValue: function(elementObject) {
+                var result = inTrello.trait.img(
+                    'Twitter',
+                    'https://cdn.wow-apps.pro/intrello/card_icon_twitter.png'
+                ) + inTrello.trait.strong(' Twitter') + ': ';
+                result += elementObject.name;
+                result += inTrello.trait.br();
+                result += inTrello.trait.a(chrome.i18n.getMessage('appContactsTwitterButton'), 'https://twitter.com/' + elementObject.name);
+                
+                return inTrello.trait.blockquote(result);
+            }
+        }
+    },
     trait: {
         clearText: function(text) {
             return text.trim().replace(/[\r\n]+/g, '').replace(/\s\s+/g, ' ');
@@ -65,6 +169,53 @@ var inTrello = {
         },
         blockquote: function(text) {
             return '> ' + text;
+        },
+        getFormattedDate: function(day, month) {
+            return new Intl.DateTimeFormat(
+                (navigator.language || navigator.userLanguage),
+                {day: 'numeric', month: 'long'}
+            ).format(new Date('2018-' + month + '-' + day));
+        },
+        getGoogleDateRange: function(day, month) {
+            var today = new Date(),
+                dateString = today.getFullYear() + '-' + month + '-' + day + ' 11:00:00',
+                eventDate = new Date(dateString);
+
+            if (eventDate <= today) {
+                dateString = (parseInt(today.getFullYear()) + 1) + '-' + month + '-' + day + ' 11:00:00';
+                eventDate = new Date(dateString);
+            }
+
+            var googleDate = eventDate.toISOString();
+            
+            return googleDate.replace(/-/g, '').replace(/.000Z/g, 'Z').replace(/:/g, '') + '/' + googleDate.replace(/-/g, '').replace(/.000Z/g, 'Z').replace(/:/g, '');
+        },
+        createGoogleCalendarEventLink: function(text, dates, details, location) {
+            var linkParams = {
+                text: text === undefined ? '' : text,
+                dates: dates === undefined ? '' : dates,
+                details: details === undefined ? '' : details,
+                location: location === undefined ? '' : location,
+                action: 'TEMPLATE',
+                sf: true,
+                output: 'xml'
+            };
+
+            var linkParamsString = '';
+            var counter = 0;
+
+            $.each(linkParams, function(key, value) {
+                if (value != '') {
+                    counter++;
+                    if (counter !== 1) {
+                        linkParamsString += '&';
+                    }
+                    
+                    linkParamsString += key + '=' + encodeURIComponent(value);
+                }
+            });
+
+            return 'https://calendar.google.com/calendar/r/eventedit?' + linkParamsString;
         }
     },
     configure: function(appKey, appMode, tabUrl) {
@@ -130,18 +281,58 @@ var inTrello = {
             });
         });
 
-        $('a[data-control-name="contact_see_more"]').click();
+        this.requestContactData();
+    },
+    getUserIdFromUrl: function(url) {
+        var matches = url.match(new RegExp("\/in\/(.*)\/"));
+        return matches ? decodeURIComponent(matches[1]) : undefined;
+    },
+    requestContactData: function() {
+        cookie.getAll();
+        var userId = this.getUserIdFromUrl(window.location.href);
+        var url = 'https://www.linkedin.com/voyager/api/identity/profiles/' + userId + '/profileContactInfo';
 
-        setTimeout(function() {
-            $('section.pv-contact-info__contact-type').each(function(item) {
-                inTrello.data.inProfile.contacts.push({
-                    contactHeader: inTrello.trait.clearText($('header', this).text()),
-                    contactValue: inTrello.trait.clearText($('div.pv-contact-info__ci-container', this).text())
-                });
-            });
 
-            inTrello.setupTrelloApiRequest();
-        }, 2000);
+        var xhttp = new XMLHttpRequest();
+        
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                var json = JSON.parse(xhttp.responseText);
+                inTrello.getContacts(json);
+                inTrello.setupTrelloApiRequest();
+            }
+        };
+
+        requestHeaders = {
+            'accept': 'application/vnd.linkedin.normalized+json; charset=UTF-8',
+            'accept-language': (navigator.language || navigator.userLanguage),
+            'cache': 'no-cache',
+            'pragma': 'no-cache',
+            'x-requested-with': 'XMLHttpRequest',
+            'x-restli-protocol-version': '2.0.0',
+            'referrer': window.location.href,
+            'referrerPolicy': 'no-referrer-when-downgrade',
+            'csrf-token': cookie.get('JSESSIONID')
+        };
+
+        xhttp.open('GET', url, true);
+        
+        $.each(requestHeaders, function(key, value) {
+            xhttp.setRequestHeader(key, value);
+        });
+
+        xhttp.send();
+    },
+    getContacts: function(jsonResponse) {
+        if (jsonResponse.data.emailAddress != undefined) {
+            inTrello.data.inProfile.contacts.push(inTrello.contactMap['emailAddress'].getValue(jsonResponse.data.emailAddress));
+        }
+
+        $.each(jsonResponse.included, function(key, value){
+            if (inTrello.contactMap[value.$type] !== undefined) {
+                inTrello.data.inProfile.contacts.push(inTrello.contactMap[value.$type].getValue(value));
+            }
+        });
     },
     setupTrelloApiRequest: function() {
         this.data.trelloApiRequest.name = this.data.inProfile.name;
@@ -153,20 +344,13 @@ var inTrello = {
         if (this.data.inProfile.location != '') {
             this.data.trelloApiRequest.appendDesc(' (' + this.data.inProfile.location + ')');
         }
-        this.data.trelloApiRequest
-            .appendDesc(this.trait.br())
-            .appendDesc(this.trait.hr())
-            .appendDesc(this.trait.br());
+        this.data.trelloApiRequest.appendDesc(this.trait.br());
 
         if (this.data.inProfile.contacts.length > 0) {
-            this.data.trelloApiRequest
-                .appendDesc(this.trait.h3('Contact information:'))
-                .appendDesc(this.trait.br());
             $.each(this.data.inProfile.contacts, function(key, item) {
                 inTrello.data.trelloApiRequest
-                    .appendDesc(
-                        inTrello.trait.blockquote(inTrello.trait.strong(item.contactHeader) + ': ' + item.contactValue)
-                    )
+                    .appendDesc(item)
+                    .appendDesc(inTrello.trait.br())
                     .appendDesc(inTrello.trait.br());
             });
             this.data.trelloApiRequest
@@ -177,7 +361,7 @@ var inTrello = {
 
         if (this.data.inProfile.experience.length > 0) {
             this.data.trelloApiRequest
-                .appendDesc(inTrello.trait.h3('Experience:'))
+                .appendDesc(inTrello.trait.h2(chrome.i18n.getMessage('appExperienceHeader') + ':'))
                 .appendDesc(inTrello.trait.br());
             $.each(this.data.inProfile.experience, function(key, item) {
                 inTrello.data.trelloApiRequest
@@ -203,7 +387,7 @@ var inTrello = {
 
         if (this.data.inProfile.education.length > 0) {
             this.data.trelloApiRequest
-                .appendDesc(inTrello.trait.h3('Education:'))
+                .appendDesc(inTrello.trait.h2(chrome.i18n.getMessage('appEducationHeader') + ':'))
                 .appendDesc(inTrello.trait.br());
             $.each(this.data.inProfile.education, function(key, item) {
                 inTrello.data.trelloApiRequest
@@ -248,35 +432,7 @@ var inTrello = {
             );
 
         this.preLoader(false);
-        this.requestContactData('viktoriya-roik-39442b66');
-        // this.createCard();
-    },
-    getUserIdFromUrl: function(url) {
-        console.log('Url: ' + url);
-        var matches = url.match(new RegExp("\/in\/(.*)\/"));
-        return matches ? decodeURIComponent(matches[1]) : undefined;
-    },
-    requestContactData: function() {
-        //curl 'https://www.linkedin.com/voyager/api/identity/profiles/marina-pronina/profileContactInfo' -H 'accept-encoding: gzip, deflate, br' -H 'x-li-lang: en_US' -H 'accept-language: ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7,uk;q=0.6' -H 'x-requested-with: XMLHttpRequest' -H 'cookie: bcookie="v=2&e5bdf2d8-d4b0-4aa4-834c-bf11e8adf345"; bscookie="v=1&2018070809080352c22238-da0e-482c-8eff-d1783cc5bdd0AQF_BLzfl3FC0Q8oeh-dZwU5PBtBuWvS"; _ga=GA1.2.1733992327.1531148634; sl="v=1&snCCi"; JSESSIONID="ajax:2998513099200544385"; liap=true; li_at=AQEDAQpTC2QFzQQ0AAABZH-SDqgAAAFko56SqFYACsC4RMdnSoAA0-3w-buZCNFdzSUIGcGj2JQmJgaPwp7_tp_jloXv3x2t0tdYpC8YqyaooZivPI18t1x8TWfI3kFlPNXg_GvybYzCk73V8V2K30O7; _guid=c0e53a28-8e73-469b-880a-cb32d4d08f1c; li_oatml=AQHqZVQMMsg9RgAAAWR_kiL2Fd-0FMQm_oSC_Djgci7Txw5RMjyGpjM0LlCQrLiP6ru8gqjqyBZPjAMBc7qcCSxrIXYExSnE; visit="v=1&M"; lang="v=2&lang=en-us"; SID=b37adfa1-f756-47c6-a5fe-b8b8de8c209a; VID=V_2018_07_14_16_471; _gat=1; _lipt=CwEAAAFknw-IzGH-1zbdTK1C-IkpepFfZyeqS_zp3qlsCMfI823zqoVcOFE7fBrGr3Vhc4Co7BWiUTu35RzUb0KKpgL0ChSmOq7cX9xzbYywdzXmRpo2s5HLvlrwdYWCho4rYD-c7dyzB3nJIWd1ujdgO9EPJ5nDRiEAK2wHLc4wqJQ3AaGcE97DxjNA713akrR89hNTKFjDo7J7qgoIgwIk2rzncR1kKa_JSNqHcC0v_GhlfWojF1CXbflsKfhVto60BTaHWntJ_35_GbtTB-QSi12coCFEOogqchZJhSm5l0FbXekZsaQOqywO2lmhqx9bNLSXfc5bmFQ8uYKPJ-SplSx1shxJklXoMC-8wviDTPGo0E5tNs2xrRe6HlJBaaQFMN772sI; lidc="b=OB64:g=887:u=222:i=1531676953:t=1531761803:s=AQEoysAZUdjGhH3vR1diO5IUhtQbTJD-"' -H 'x-restli-protocol-version: 2.0.0' -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36' -H 'x-li-page-instance: urn:li:page:d_flagship3_profile_view_base_contact_details;TBxF+bOYRA6uCH1PflgAkQ==' -H 'accept: application/vnd.linkedin.normalized+json' -H 'csrf-token: ajax:2998513099200544385' -H 'x-li-track: {"clientVersion":"1.1.8928","osName":"web","timezoneOffset":3,"deviceFormFactor":"DESKTOP","mpName":"voyager-web"}' -H 'authority: www.linkedin.com' -H 'referer: https://www.linkedin.com/in/marina-pronina/' --compressed
-        var userId = this.getUserIdFromUrl(window.location.href),
-            url = 'https://www.linkedin.com/voyager/api/identity/profiles/' + userId + '/profileContactInfo';
-        result = fetch(
-            url,
-            {
-                credentials: 'same-origin',
-                headers: {},
-                referrer: window.location.href,
-                referrerPolicy: 'no-referrer-when-downgrade',
-                body: null,
-                method: 'GET',
-                mode: 'no-cors',
-                redirect: 'follow'
-            }
-        ).then(function(response) {
-            console.log(response.status);
-            console.log(response.ok);
-            console.log(response);
-        });
+        this.createCard();
     },
     createCard: function() {
         if (this.data.trelloApiRequest.mode === 'popup') {
