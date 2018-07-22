@@ -66,5 +66,9 @@
     "appEducationHeader": {
         "message": "Education",
         "desctiption": "Education header"
+    },
+    "appSkillsTitle": {
+        "message": "Skills",
+        "desctiption": "Skills list title"
     }
 }

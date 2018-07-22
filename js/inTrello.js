@@ -29,7 +29,8 @@ var inTrello = {
             avatar: '',
             experience: [],
             education: [],
-            contacts: []
+            contacts: [],
+            skills: []
         }
     },
     contactMap: {
@@ -56,7 +57,9 @@ var inTrello = {
                     result += inTrello.trait.a(
                         chrome.i18n.getMessage('appContactsDateOfBirthAddCalendarLink'),
                         inTrello.trait.createGoogleCalendarEventLink(
-                            chrome.i18n.getMessage('appContactsDateOfBirthCalendarTitle') + ' ' + inTrello.data.inProfile.name,
+                            chrome.i18n.getMessage('appContactsDateOfBirthCalendarTitle')
+                                + ' ' + inTrello.data.inProfile.name
+                                + ' (' + inTrello.data.inProfile.topic + ')',
                             inTrello.trait.getGoogleDateRange(elementObject.day, elementObject.month),
                             window.location.href
                         )
@@ -240,8 +243,10 @@ var inTrello = {
     },
     execute: function() {
         this.preLoader(true);
-        $('button.contact-see-more-less').click();
         $("html, body").animate({ scrollTop: $(document).height() }, 3000).promise().then(function() {
+            if ($('button[data-control-name="skill_details"]').length > 0) {
+                $('button[data-control-name="skill_details"]').click();
+            }
             $(window).scrollTop(0);
             inTrello.parseData();
         });
@@ -279,6 +284,13 @@ var inTrello = {
                 degreeName: inTrello.trait.clearText($('p.pv-entity__degree-name', this).text()),
                 dateRange: inTrello.trait.clearText($('p.pv-entity__dates span:last-child', this).text())
             });
+        });
+
+        $('div.pv-skill-category-list > ol.pv-skill-category-list__skills_list > li', 'div#skill-categories-expanded').each(function() {
+            var skill = $('div > p > a > span', this).text().trim();
+            if (skill.length > 0) {
+                inTrello.data.inProfile.skills.push(skill);
+            }
         });
 
         this.requestContactData();
@@ -354,6 +366,19 @@ var inTrello = {
                     .appendDesc(inTrello.trait.br());
             });
             this.data.trelloApiRequest
+                .appendDesc(inTrello.trait.br())
+                .appendDesc(inTrello.trait.hr())
+                .appendDesc(inTrello.trait.br())
+                .appendDesc(inTrello.trait.br());
+        }
+
+        if (this.data.inProfile.skills.length > 0) {
+            var skills = this.data.inProfile.skills.join(', ');
+            this.data.trelloApiRequest.appendDesc(this.trait.h2(chrome.i18n.getMessage('appSkillsTitle') + ':'));
+            this.data.trelloApiRequest.appendDesc(inTrello.trait.br())
+                .appendDesc(inTrello.trait.br())
+                .appendDesc(inTrello.trait.blockquote(skills))
+                .appendDesc(inTrello.trait.br())
                 .appendDesc(inTrello.trait.br())
                 .appendDesc(inTrello.trait.hr())
                 .appendDesc(inTrello.trait.br());
