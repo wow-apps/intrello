@@ -1,74 +1,74 @@
 {
     "extName": {
-        "message": "inTrello",
-        "description": "Extention name"
+      "message": "inTrello",
+      "description": "Extention name"
     },
-    "extDesctiption": {
-        "message": "Organize all your candidates from LinkedIn in Trello boards",
-        "desctiption": "Extention description"
+    "extdescription": {
+      "message": "Organize all your candidates from LinkedIn in Trello boards",
+      "description": "Extention description"
     },
     "extPreloaderMessage": {
-        "message": "begin the hiring process...",
-        "desctiption": "Extention preloader message"
+      "message": "begin the hiring process...",
+      "description": "Extention preloader message"
     },
     "appContactsDateOfBirth": {
-        "message": "Date of Birth",
-        "desctiption": "Date of Birth title"
+      "message": "Date of Birth",
+      "description": "Date of Birth title"
     },
     "appContactsDateOfBirthAddCalendarLink": {
-        "message": "Add birthday event to Google calendar",
-        "desctiption": "Add birthday event to calendar button text"
+      "message": "Add birthday event to Google calendar",
+      "description": "Add birthday event to calendar button text"
     },
     "appContactsDateOfBirthCalendarTitle": {
-        "message": "Birthday of",
-        "desctiption": "Title for add birthday to calendar"
+      "message": "Birthday of",
+      "description": "Title for add birthday to calendar"
     },
     "appContactsSkypeChatButton": {
-        "message": "Start chat in Skype",
-        "desctiption": "Start chat in Skype button text"
+      "message": "Start chat in Skype",
+      "description": "Start chat in Skype button text"
     },
     "appContactsSkypeCallButton": {
-        "message": "Call in Skype",
-        "desctiption": "Call in Skype button text"
+      "message": "Call in Skype",
+      "description": "Call in Skype button text"
     },
     "appContactsHangoutChatButton": {
-        "message": "Start chat in Hangout",
-        "desctiption": "Start chat in Hangout button text"
+      "message": "Start chat in Hangout",
+      "description": "Start chat in Hangout button text"
     },
     "appContactsICQChatButton": {
-        "message": "Start chat in ICQ",
-        "desctiption": "Start chat in ICQ button text"
+      "message": "Start chat in ICQ",
+      "description": "Start chat in ICQ button text"
     },
     "appContactsPhoneTitle": {
-        "message": "Phone number",
-        "desctiption": "Phone number title"
+      "message": "Phone number",
+      "description": "Phone number title"
     },
     "appContactsPhoneCall": {
-        "message": "Call on phone number",
-        "desctiption": "Make a call on phone number"
+      "message": "Call on phone number",
+      "description": "Make a call on phone number"
     },
     "appContactsSiteTitle": {
-        "message": "Web site",
-        "desctiption": "Web site title"
+      "message": "Web site",
+      "description": "Web site title"
     },
     "appContactsTwitterButton": {
-        "message": "Go to Twitter account",
-        "desctiption": "Twitter button"
+      "message": "Go to Twitter account",
+      "description": "Twitter button"
     },
     "appContactsEmailButton": {
-        "message": "Compose an e-mail",
-        "desctiption": "Compose an e-mail button"
+      "message": "Compose an e-mail",
+      "description": "Compose an e-mail button"
     },
     "appExperienceHeader": {
-        "message": "Experience",
-        "desctiption": "Experience header"
+      "message": "Experience",
+      "description": "Experience header"
     },
     "appEducationHeader": {
-        "message": "Education",
-        "desctiption": "Education header"
+      "message": "Education",
+      "description": "Education header"
     },
     "appSkillsTitle": {
-        "message": "Skills",
-        "desctiption": "Skills list title"
+      "message": "Skills",
+      "description": "Skills list title"
     }
 }
